@@ -1,4 +1,4 @@
-package com.example.procuradosapi.model;
+package com.fiap.procuradosapi.model;
 
 import java.util.Date;
 import java.util.List;
