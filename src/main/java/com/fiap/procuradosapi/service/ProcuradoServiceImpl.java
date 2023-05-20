@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fiap.procuradosapi.exception.ResourceNotFoundException;
 import com.fiap.procuradosapi.model.Procurado;
 import com.fiap.procuradosapi.repository.ProcuradoRepository;
 
+
+@Service
+@Transactional
 public class ProcuradoServiceImpl implements ProcuradoService{
 
 	@Autowired
@@ -32,19 +37,27 @@ public class ProcuradoServiceImpl implements ProcuradoService{
 
 	@Override
 	public List<Procurado> getAllProcurados() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.procuradoRepository.findAll();
 	}
 
 	@Override
 	public Procurado getProcuradoById(long procuradoId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Procurado> procuradoBD = this.procuradoRepository.findById(procuradoId);
+		if(procuradoBD.isPresent()) {
+			return procuradoBD.get();
+		}else {
+			throw new ResourceNotFoundException("Record not found with id " + procuradoId);
+		}	
 	}
 
 	@Override
 	public void deleteProcurado(long procuradoId) {
-		// TODO Auto-generated method stub
+		Optional<Procurado> procuradoBD = this.procuradoRepository.findById(procuradoId);
+		if(procuradoBD.isPresent()) {
+			this.procuradoRepository.delete(procuradoBD.get());
+		}else {
+			throw new ResourceNotFoundException("Record not found with id " + procuradoId);
+		}
 		
 	}
 
