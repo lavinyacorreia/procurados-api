@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fiap.procuradosapi.exception.ResourceNotFoundException;
-import com.fiap.procuradosapi.model.Procurado;
+import com.fiap.procuradosapi.model.ProcuradoFBI;
 import com.fiap.procuradosapi.repository.ProcuradoRepository;
 
 
@@ -20,13 +20,13 @@ public class ProcuradoServiceImpl implements ProcuradoService{
 	public ProcuradoRepository procuradoRepository;
 	
 	@Override
-	public Procurado createProcurado(Procurado procurado) {
+	public ProcuradoFBI createProcurado(ProcuradoFBI procurado) {
 		return procuradoRepository.save(procurado);
 	}
 
 	@Override
-	public Procurado updateProcurado(Procurado procurado) {
-		Optional<Procurado> procuradoBD = this.procuradoRepository.findById(procurado.getId());
+	public ProcuradoFBI updateProcurado(ProcuradoFBI procurado) {
+		Optional<ProcuradoFBI> procuradoBD = this.procuradoRepository.findById(procurado.getId());
 		if(procuradoBD.isPresent()) {
 			procuradoRepository.save(procurado);
 			return procurado;
@@ -36,13 +36,13 @@ public class ProcuradoServiceImpl implements ProcuradoService{
 	}
 
 	@Override
-	public List<Procurado> getAllProcurados() {
+	public List<ProcuradoFBI> getAllProcurados() {
 		return this.procuradoRepository.findAll();
 	}
 
 	@Override
-	public Procurado getProcuradoById(long procuradoId) {
-		Optional<Procurado> procuradoBD = this.procuradoRepository.findById(procuradoId);
+	public ProcuradoFBI getProcuradoById(long procuradoId) {
+		Optional<ProcuradoFBI> procuradoBD = this.procuradoRepository.findById(procuradoId);
 		if(procuradoBD.isPresent()) {
 			return procuradoBD.get();
 		}else {
@@ -52,7 +52,7 @@ public class ProcuradoServiceImpl implements ProcuradoService{
 
 	@Override
 	public void deleteProcurado(long procuradoId) {
-		Optional<Procurado> procuradoBD = this.procuradoRepository.findById(procuradoId);
+		Optional<ProcuradoFBI> procuradoBD = this.procuradoRepository.findById(procuradoId);
 		if(procuradoBD.isPresent()) {
 			this.procuradoRepository.delete(procuradoBD.get());
 		}else {

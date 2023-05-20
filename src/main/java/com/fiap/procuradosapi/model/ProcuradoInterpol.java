@@ -21,26 +21,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "procurado")
-public class Procurado {
+@Table(name = "T_PROCURADOS_INTERPOL")
+public class ProcuradoInterpol {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column(name = "name")
+	@Column(name = "nm_pessoa")
 	private String name;
+	
+	@Column(name = "nr_documento")
+	private String numeroDocumento;
+	
+	@Column(name = "nacionalidade")
+	private String nacionalidadeProcurado;
 	 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "desc_pessoa")
+	private String descriptionProcurado;
 	
-	@Column(name = "birthDate")
-	private Date birthDate;
-	
-	@CreationTimestamp
-	private Date createdAt;
-	
-//	private List<Delito> listDelito;
+	@Column(name = "dt_nasc")
+	private Date dataNascimento;
+
+	@Column(name = "tipo_delito")
+	private List<TipoDelito> listDelito;
 	
 	
 
