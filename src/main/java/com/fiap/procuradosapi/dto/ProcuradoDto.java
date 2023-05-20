@@ -1,9 +1,10 @@
 package com.fiap.procuradosapi.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.Date;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fiap.procuradosapi.model.TipoDelito;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +12,30 @@ import lombok.Setter;
 @Setter
 public class ProcuradoDto {
 	
-	private long id;
+	@NotBlank
+	@JsonProperty("id_procurado")
+	private long id; 
 
+	@NotBlank
+	@JsonProperty("nome_procurado")
+	private String nome;
 	
-	private String name;
-	 
+	@NotBlank
+	@JsonProperty("numero_documento")
+	private String numeroDocumento;
 	
-	private String description;
+	@NotBlank
+	@JsonProperty("nacionalidade")
+	private String nacionalidadeProcurado;
+
+	@JsonProperty("description_procurado")
+	private String descriptionProcurado;
+	
+	@NotBlank
+	@JsonProperty("data_nascimento")
+	private Date dataNascimento;
+	
+	@NotBlank
+	@JsonProperty("list_tipo_delito")
+	private List<TipoDelito> listDelito;
 }

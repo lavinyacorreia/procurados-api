@@ -13,42 +13,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.procuradosapi.dto.ProcuradoDto;
-import com.fiap.procuradosapi.model.ProcuradoFBI;
-import com.fiap.procuradosapi.service.ProcuradoFBIService;
+import com.fiap.procuradosapi.model.ProcuradoInterpol;
+import com.fiap.procuradosapi.service.ProcuradoInterpolService;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class ProcuradoFBIController {
+public class ProcuradoInterpolController {
 
 	@Autowired
-	private ProcuradoFBIService procuradoService;
+	private ProcuradoInterpolService procuradoService;
 	
-	@GetMapping("/procuradosFBI")
-	public ResponseEntity<List<ProcuradoFBI>> getAllProcurados(){
+	@GetMapping("/procuradosInterpol")
+	public ResponseEntity<List<ProcuradoInterpol>> getAllProcurados(){
 		return ResponseEntity.ok().body(procuradoService.getAllProcurados());
 	}
 	
-	@GetMapping("/procuradosFBI/{id}")
-	public ResponseEntity<ProcuradoFBI> getProcuradoById(@PathVariable long id){
+	@GetMapping("/procuradosInterpol/{id}")
+	public ResponseEntity<ProcuradoInterpol> getProcuradoById(@PathVariable long id){
 		return ResponseEntity.ok().body(procuradoService.getProcuradoById(id));
 	}
 	
-	@PostMapping("/procuradosFBI")
+	@PostMapping("/procuradosInterpol")
 	public ResponseEntity<Object> createProcurado(@RequestBody @Valid ProcuradoDto procuradoDto){
-		var procurado = new ProcuradoFBI();
+		var procurado = new ProcuradoInterpol();
         BeanUtils.copyProperties(procuradoDto, procurado);
 		return ResponseEntity.ok().body(this.procuradoService.createProcurado(procurado));
 	}
 	
-	@PutMapping("/procuradosFBI/{id}")
+	@PutMapping("/procuradosInterpol/{id}")
 	public ResponseEntity<Object> updateProcurado(@PathVariable long id, @RequestBody @Valid ProcuradoDto procuradoDto){
-		var procurado = new ProcuradoFBI();
+		var procurado = new ProcuradoInterpol();
         BeanUtils.copyProperties(procuradoDto, procurado);
 		return ResponseEntity.ok().body(this.procuradoService.updateProcurado(procurado));
 	}
 	
-	@DeleteMapping("/procuradosFBI/{id}")
+	@DeleteMapping("/procuradosInterpol/{id}")
 	public ResponseEntity<Object> deleteProcurado(@PathVariable long id, @RequestBody ProcuradoDto procuradoDto){
 		this.procuradoService.deleteProcurado(id);
 		return ResponseEntity.ok().body("Procurado " + procuradoDto.getNome() + " com id: " + id + " apagado!");

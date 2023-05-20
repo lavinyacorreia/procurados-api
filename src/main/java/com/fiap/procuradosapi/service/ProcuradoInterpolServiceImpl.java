@@ -6,27 +6,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.fiap.procuradosapi.exception.ResourceNotFoundException;
-import com.fiap.procuradosapi.model.ProcuradoFBI;
-import com.fiap.procuradosapi.repository.ProcuradoRepository;
-
+import com.fiap.procuradosapi.model.ProcuradoInterpol;
+import com.fiap.procuradosapi.repository.ProcuradoInterpolRepository;
 
 @Service
 @Transactional
-public class ProcuradoServiceImpl implements ProcuradoService{
+public class ProcuradoInterpolServiceImpl implements ProcuradoInterpolService{
 
 	@Autowired
-	public ProcuradoRepository procuradoRepository;
+	public ProcuradoInterpolRepository procuradoRepository;
 	
 	@Override
-	public ProcuradoFBI createProcurado(ProcuradoFBI procurado) {
+	public ProcuradoInterpol createProcurado(ProcuradoInterpol procurado) {
 		return procuradoRepository.save(procurado);
 	}
 
 	@Override
-	public ProcuradoFBI updateProcurado(ProcuradoFBI procurado) {
-		Optional<ProcuradoFBI> procuradoBD = this.procuradoRepository.findById(procurado.getId());
+	public ProcuradoInterpol updateProcurado(ProcuradoInterpol procurado) {
+		Optional<ProcuradoInterpol> procuradoBD = this.procuradoRepository.findById(procurado.getId());
 		if(procuradoBD.isPresent()) {
 			procuradoRepository.save(procurado);
 			return procurado;
@@ -36,13 +34,13 @@ public class ProcuradoServiceImpl implements ProcuradoService{
 	}
 
 	@Override
-	public List<ProcuradoFBI> getAllProcurados() {
+	public List<ProcuradoInterpol> getAllProcurados() {
 		return this.procuradoRepository.findAll();
 	}
 
 	@Override
-	public ProcuradoFBI getProcuradoById(long procuradoId) {
-		Optional<ProcuradoFBI> procuradoBD = this.procuradoRepository.findById(procuradoId);
+	public ProcuradoInterpol getProcuradoById(long procuradoId) {
+		Optional<ProcuradoInterpol> procuradoBD = this.procuradoRepository.findById(procuradoId);
 		if(procuradoBD.isPresent()) {
 			return procuradoBD.get();
 		}else {
@@ -52,7 +50,7 @@ public class ProcuradoServiceImpl implements ProcuradoService{
 
 	@Override
 	public void deleteProcurado(long procuradoId) {
-		Optional<ProcuradoFBI> procuradoBD = this.procuradoRepository.findById(procuradoId);
+		Optional<ProcuradoInterpol> procuradoBD = this.procuradoRepository.findById(procuradoId);
 		if(procuradoBD.isPresent()) {
 			this.procuradoRepository.delete(procuradoBD.get());
 		}else {
