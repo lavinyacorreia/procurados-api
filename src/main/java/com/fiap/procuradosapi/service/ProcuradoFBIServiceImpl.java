@@ -31,7 +31,7 @@ public class ProcuradoFBIServiceImpl implements ProcuradoFBIService{
 			procuradoRepository.save(procurado);
 			return procurado;
 		}else {
-			throw new ResourceNotFoundException("Record not found with id " +procurado.getId());
+			throw new ResourceNotFoundException("Record ProcuradoFBI not found with id " +procurado.getId());
 		}
 	}
 
@@ -46,7 +46,7 @@ public class ProcuradoFBIServiceImpl implements ProcuradoFBIService{
 		if(procuradoBD.isPresent()) {
 			return procuradoBD.get();
 		}else {
-			throw new ResourceNotFoundException("Record not found with id " + procuradoId);
+			throw new ResourceNotFoundException("Record ProcuradoFBI not found with id " + procuradoId);
 		}	
 	}
 
@@ -56,7 +56,7 @@ public class ProcuradoFBIServiceImpl implements ProcuradoFBIService{
 		if(procuradoBD.isPresent()) {
 			this.procuradoRepository.delete(procuradoBD.get());
 		}else {
-			throw new ResourceNotFoundException("Record not found with id " + procuradoId);
+			throw new ResourceNotFoundException("Record ProcuradoFBI not found with id " + procuradoId);
 		}
 		
 	}

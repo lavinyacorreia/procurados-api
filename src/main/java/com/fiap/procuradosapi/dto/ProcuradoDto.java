@@ -2,9 +2,7 @@ package com.fiap.procuradosapi.dto;
 
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -29,12 +27,10 @@ public class ProcuradoDto {
 	@JsonProperty("description_procurado")
 	private String descriptionProcurado;
 	
-	@NotBlank
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
 	@JsonProperty("data_nascimento")
 	private Date dataNascimento;
 	
-	@NotBlank
-	@JsonProperty("list_tipo_delito")
-	private List<String> listDelito;
+	@JsonProperty("list_id_delitos")
+	private List<Long> listDelito;
 }

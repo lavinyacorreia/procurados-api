@@ -1,18 +1,18 @@
 package com.fiap.procuradosapi.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -57,7 +57,21 @@ public class ProcuradoFBI {
 	private Date dataNascimento;
 	
 	@Column(name = "tipo_delito")
-	@JsonProperty("list_tipo_delito")
-	private List<String> listDelito;
+    @OneToMany(
+    		mappedBy = "procuradoFBI",
+    		cascade = CascadeType.ALL
+    		)
+    private List<TipoDelito> delitosProcurado = new ArrayList<TipoDelito>();
 
+	public ProcuradoFBI(@NotBlank String nome, @NotBlank String numeroDocumento,
+			@NotBlank String nacionalidadeProcurado, String descriptionProcurado, Date dataNascimento,
+			List<TipoDelito> delitosProcurado) {
+		this.nome = nome;
+		this.numeroDocumento = numeroDocumento;
+		this.nacionalidadeProcurado = nacionalidadeProcurado;
+		this.descriptionProcurado = descriptionProcurado;
+		this.dataNascimento = dataNascimento;
+		this.delitosProcurado = delitosProcurado;
+	}
+	
 }
