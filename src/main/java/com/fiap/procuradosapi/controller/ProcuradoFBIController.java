@@ -2,6 +2,7 @@ package com.fiap.procuradosapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.procuradosapi.dto.ProcuradoDto;
+import com.fiap.procuradosapi.exception.ResourceNotFoundException;
 import com.fiap.procuradosapi.model.ProcuradoFBI;
 import com.fiap.procuradosapi.model.TipoDelito;
 import com.fiap.procuradosapi.service.ProcuradoFBIService;
@@ -43,8 +46,14 @@ public class ProcuradoFBIController {
 	public ResponseEntity<Object> createProcurado(@RequestBody @Valid ProcuradoDto procuradoDto){
 		List<TipoDelito> delitos = new ArrayList<TipoDelito>();
 		for(Long id : procuradoDto.getListDelito()) {
-			TipoDelito delito = tipoDelitoService.getTipoDelitoById(id);
-			delitos.add(delito);
+			try {
+				TipoDelito delito = tipoDelitoService.getTipoDelitoById(id);
+				delitos.add(delito);
+			}catch(ResourceNotFoundException e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tipo delito com id "+id+ " não encontrado");
+			}catch(Exception e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Exceção inesperada! " + e.getMessage());
+			}
 		}
 		ProcuradoFBI procurado = new ProcuradoFBI(
 				procuradoDto.getNome(), 
@@ -61,8 +70,14 @@ public class ProcuradoFBIController {
 	public ResponseEntity<Object> updateProcurado(@PathVariable long id, @RequestBody @Valid ProcuradoDto procuradoDto){
 		List<TipoDelito> delitos = new ArrayList<TipoDelito>();
 		for(Long idDelito : procuradoDto.getListDelito()) {
-			TipoDelito delito = tipoDelitoService.getTipoDelitoById(idDelito);
-			delitos.add(delito);
+			try {
+				TipoDelito delito = tipoDelitoService.getTipoDelitoById(idDelito);
+				delitos.add(delito);
+			}catch(ResourceNotFoundException e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tipo delito com id "+id+ " não encontrado");
+			}catch(Exception e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Exceção inesperada! " + e.getMessage());
+			}
 		}
 		ProcuradoFBI procurado = new ProcuradoFBI(
 				procuradoDto.getNome(), 
@@ -72,6 +87,7 @@ public class ProcuradoFBIController {
 				procuradoDto.getDataNascimento(),
 				delitos
 				);
+		procurado.setId(id);
 		return ResponseEntity.ok().body(this.procuradoService.updateProcurado(procurado));
 	}
 	

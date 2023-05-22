@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -57,6 +58,7 @@ public class ProcuradoFBI {
 	private Date dataNascimento;
 	
 	@Column(name = "tipo_delito")
+	@JsonProperty("delitos_procurado")
     @OneToMany(
     		mappedBy = "procuradoFBI",
     		cascade = CascadeType.ALL
