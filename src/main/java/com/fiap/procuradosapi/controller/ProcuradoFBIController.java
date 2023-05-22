@@ -1,6 +1,8 @@
 package com.fiap.procuradosapi.controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.procuradosapi.dto.ProcuradoDto;
@@ -39,7 +40,8 @@ public class ProcuradoFBIController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ProcuradoFBI> getProcuradoById(@PathVariable long id){
-		return ResponseEntity.ok().body(procuradoService.getProcuradoById(id));
+		ProcuradoFBI procurado = procuradoService.getProcuradoById(id);
+		return ResponseEntity.ok().body(procurado);
 	}
 	
 	@PostMapping
@@ -61,7 +63,9 @@ public class ProcuradoFBIController {
 				procuradoDto.getNacionalidadeProcurado(),
 				procuradoDto.getDescriptionProcurado(),
 				procuradoDto.getDataNascimento(),
-				delitos
+				delitos.stream()
+						.map(TipoDelito::getId)
+						.collect(Collectors.toList())
 				);
 		return ResponseEntity.ok().body(this.procuradoService.createProcurado(procurado));
 	}
@@ -85,7 +89,9 @@ public class ProcuradoFBIController {
 				procuradoDto.getNacionalidadeProcurado(),
 				procuradoDto.getDescriptionProcurado(),
 				procuradoDto.getDataNascimento(),
-				delitos
+				delitos.stream()
+						.map(TipoDelito::getId)
+						.collect(Collectors.toList())
 				);
 		procurado.setId(id);
 		return ResponseEntity.ok().body(this.procuradoService.updateProcurado(procurado));

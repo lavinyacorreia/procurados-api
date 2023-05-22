@@ -7,13 +7,11 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -57,23 +55,22 @@ public class ProcuradoInterpol {
 	@JsonProperty("data_nascimento")
 	private Date dataNascimento;
 
-	@Column(name = "tipo_delito")
-	@JsonProperty("delitos_procurado")
-    @OneToMany(
-    		mappedBy = "procuradoInterpol",
-    		cascade = CascadeType.ALL
-    		)
-    private List<TipoDelito> delitosProcurado = new ArrayList<TipoDelito>();
-
-	public ProcuradoInterpol(@NotBlank String nome, @NotBlank String numeroDocumento,
-			@NotBlank String nacionalidadeProcurado, String descriptionProcurado, Date dataNascimento,
-			List<TipoDelito> delitosProcurado) {
+	@Column(name = "list_id_delitos")
+	@JsonProperty("list_id_delitos")
+	private List<Long> list_id_delitos = new ArrayList<>();
+	
+	public ProcuradoInterpol(@NotBlank String nome, 
+			@NotBlank String numeroDocumento,
+			@NotBlank String nacionalidadeProcurado,
+			String descriptionProcurado, 
+			Date dataNascimento,
+			List<Long> list_id_delitos) {
 		super();
 		this.nome = nome;
 		this.numeroDocumento = numeroDocumento;
 		this.nacionalidadeProcurado = nacionalidadeProcurado;
 		this.descriptionProcurado = descriptionProcurado;
 		this.dataNascimento = dataNascimento;
-		this.delitosProcurado = delitosProcurado;
+		this.list_id_delitos = list_id_delitos;
 	}
 }

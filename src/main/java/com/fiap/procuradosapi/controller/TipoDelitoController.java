@@ -38,6 +38,7 @@ public class TipoDelitoController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateTipoDelito(@PathVariable long id, @RequestBody TipoDelito tipoDelito){
+		tipoDelito.setId(id);
 		return ResponseEntity.ok().body(this.tipoDelitoService.updateTipoDelito(tipoDelito));
 	}
 	

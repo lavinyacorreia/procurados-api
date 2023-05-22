@@ -1,6 +1,8 @@
 package com.fiap.procuradosapi.controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +61,9 @@ public class ProcuradoInterpolController {
 				procuradoDto.getNacionalidadeProcurado(),
 				procuradoDto.getDescriptionProcurado(),
 				procuradoDto.getDataNascimento(),
-				delitos
+				delitos.stream()
+				.map(TipoDelito::getId)
+				.collect(Collectors.toList())
 				);
 		return ResponseEntity.ok().body(this.procuradoService.createProcurado(procurado));
 	}
@@ -84,7 +88,9 @@ public class ProcuradoInterpolController {
 				procuradoDto.getNacionalidadeProcurado(),
 				procuradoDto.getDescriptionProcurado(),
 				procuradoDto.getDataNascimento(),
-				delitos
+				delitos.stream()
+				.map(TipoDelito::getId)
+				.collect(Collectors.toList())
 				);
 		procurado.setId(id);
 		return ResponseEntity.ok().body(this.procuradoService.updateProcurado(procurado));
