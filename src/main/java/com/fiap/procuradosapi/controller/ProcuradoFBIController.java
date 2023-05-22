@@ -35,22 +35,18 @@ public class ProcuradoFBIController {
 	}
 	
 	@PostMapping("/procuradosFBI")
-	public ResponseEntity<Object> createProcurado(@RequestBody @Valid ProcuradoDto procuradoDto){
-		var procurado = new ProcuradoFBI();
-        BeanUtils.copyProperties(procuradoDto, procurado);
+	public ResponseEntity<Object> createProcurado(@RequestBody @Valid ProcuradoFBI procurado){
 		return ResponseEntity.ok().body(this.procuradoService.createProcurado(procurado));
 	}
 	
 	@PutMapping("/procuradosFBI/{id}")
-	public ResponseEntity<Object> updateProcurado(@PathVariable long id, @RequestBody @Valid ProcuradoDto procuradoDto){
-		var procurado = new ProcuradoFBI();
-        BeanUtils.copyProperties(procuradoDto, procurado);
+	public ResponseEntity<Object> updateProcurado(@PathVariable long id, @RequestBody @Valid ProcuradoFBI procurado){
 		return ResponseEntity.ok().body(this.procuradoService.updateProcurado(procurado));
 	}
 	
 	@DeleteMapping("/procuradosFBI/{id}")
-	public ResponseEntity<Object> deleteProcurado(@PathVariable long id, @RequestBody ProcuradoDto procuradoDto){
+	public ResponseEntity<Object> deleteProcurado(@PathVariable long id, @RequestBody ProcuradoFBI procurado){
 		this.procuradoService.deleteProcurado(id);
-		return ResponseEntity.ok().body("Procurado " + procuradoDto.getNome() + " com id: " + id + " apagado!");
+		return ResponseEntity.ok().body("Procurado " + procurado.getNome() + " com id: " + id + " apagado!");
 	}
 }

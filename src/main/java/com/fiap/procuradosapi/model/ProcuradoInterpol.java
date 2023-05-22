@@ -27,7 +27,7 @@ public class ProcuradoInterpol {
 	private long id;
 	
 	@Column(name = "nm_pessoa")
-	private String name;
+	private String nome;
 	
 	@Column(name = "nr_documento")
 	private String numeroDocumento;
@@ -42,7 +42,7 @@ public class ProcuradoInterpol {
 	private Date dataNascimento;
 
 	@Column(name = "tipo_delito")
-	private List<TipoDelito> listDelito;
+	private List<String> listDelito;
 	
 	
 

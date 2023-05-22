@@ -16,7 +16,6 @@ import com.fiap.procuradosapi.dto.ProcuradoDto;
 import com.fiap.procuradosapi.model.ProcuradoInterpol;
 import com.fiap.procuradosapi.service.ProcuradoInterpolService;
 
-import jakarta.validation.Valid;
 
 @RestController
 public class ProcuradoInterpolController {
@@ -35,14 +34,14 @@ public class ProcuradoInterpolController {
 	}
 	
 	@PostMapping("/procuradosInterpol")
-	public ResponseEntity<Object> createProcurado(@RequestBody @Valid ProcuradoDto procuradoDto){
+	public ResponseEntity<Object> createProcurado(@RequestBody ProcuradoDto procuradoDto){
 		var procurado = new ProcuradoInterpol();
         BeanUtils.copyProperties(procuradoDto, procurado);
 		return ResponseEntity.ok().body(this.procuradoService.createProcurado(procurado));
 	}
 	
 	@PutMapping("/procuradosInterpol/{id}")
-	public ResponseEntity<Object> updateProcurado(@PathVariable long id, @RequestBody @Valid ProcuradoDto procuradoDto){
+	public ResponseEntity<Object> updateProcurado(@PathVariable long id, @RequestBody ProcuradoDto procuradoDto){
 		var procurado = new ProcuradoInterpol();
         BeanUtils.copyProperties(procuradoDto, procurado);
 		return ResponseEntity.ok().body(this.procuradoService.updateProcurado(procurado));
